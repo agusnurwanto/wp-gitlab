@@ -78,9 +78,9 @@ function register_gitlab_widgets(){
  * Profile widget.
  */
 class Gitlab_Widget_Profile extends WP_Widget{
-	function Gitlab_Widget_Profile() {
+	function __construct() {
 		$widget_ops = array('description' => __('Displays the gitlab user profile.'));           
-        $this->WP_Widget(false, __('Gitlab Profile'), $widget_ops);
+        parent::__construct(false, __('Gitlab Profile'), $widget_ops);
 	}
 	
 	function form($instance) {
@@ -157,9 +157,9 @@ class Gitlab_Widget_Profile extends WP_Widget{
  * Repositories widget.
  */
 class Gitlab_Widget_Repos extends WP_Widget{
-	function Gitlab_Widget_Repos() {
+	function __construct() {
 		$widget_ops = array('description' => __('Displays the repositories from a specific user.'));           
-        $this->WP_Widget(false, __('Gitlab Repositories'), $widget_ops);
+        parent::__construct(false, __('Gitlab Repositories'), $widget_ops);
 	}
 	
 	function form($instance) {
@@ -242,9 +242,9 @@ class Gitlab_Widget_Repos extends WP_Widget{
  * Commits widget.
  */
 class Gitlab_Widget_Commits extends WP_Widget{
-	function Gitlab_Widget_Commits() {
+	function __construct() {
 		$widget_ops = array('description' => __('Displays latests commits from a gitlab repository.'));           
-        $this->WP_Widget(false, __('Gitlab Commits'), $widget_ops);
+        parent::__construct(false, __('Gitlab Commits'), $widget_ops);
 	}
 	
 	function form($instance) {
@@ -339,9 +339,9 @@ class Gitlab_Widget_Commits extends WP_Widget{
  * Issues widget.
  */
 class Gitlab_Widget_Issues extends WP_Widget{
-	function Gitlab_Widget_Issues() {
+	function __construct() {
 		$widget_ops = array('description' => __('Displays latests issues from a gitlab repository.'));           
-        $this->WP_Widget(false, __('Gitlab Issues'), $widget_ops);
+        parent::__construct(false, __('Gitlab Issues'), $widget_ops);
 	}
 	
 	function form($instance) {

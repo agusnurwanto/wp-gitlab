@@ -11,7 +11,7 @@ class Gitlab {
 	private $username = null;
 	private $repository = null;
 	
-	public function Gitlab($username = 'seinoxygen', $repository = 'wp-github') {
+	public function __construct($username = 'seinoxygen', $repository = 'wp-github') {
 		$this->username = $username;
 		$this->repository = $repository;
 		
@@ -29,7 +29,7 @@ class Gitlab {
 	 * @param	$path String
 	 */
 	public function get_response($path){
-		$this->api_url = get_option('wpgitlab_url', null).'/api/v3/';
+		$this->api_url = get_option('wpgitlab_url', null).'/api/v4/';
 		$this->api_key = get_option('wpgitlab_api_key', null);
 		$ch = curl_init();
 		$headers = array();
@@ -61,6 +61,7 @@ class Gitlab {
 	 * Git the id from project
 	 */
 	public function get_project($username, $project) {
+		return array('id' => $project);
 		$namespace = urlencode($username.'/'.$project);
 		$contents = $this->get_response('projects/'.$namespace);
 		$project = json_decode($contents,true);
@@ -95,17 +96,19 @@ class Gitlab {
 	
 	/**
 	 * Return user repositories.
+	 * https://docs.gitlab.com/ee/api/projects.html
 	 */
 	public function get_repositories(){
-		$contents = $this->get_response('/projects/owned');
+		$contents = $this->get_response('/projects?owned=true&simple=true&visibility=public');
+		// echo $contents;
 		if($contents == true) {
 			//Strip out the private projects
 			$return = [];
 			$contents = json_decode($contents);
 			foreach($contents as $value) {
-				if($value->visibility_level == 20) {
+				// if($value->visibility_level == 20) {
 					$return[] = $value;
-				}
+				// }
 			}
 		 	return $return;
 		}
